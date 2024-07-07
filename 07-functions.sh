@@ -1,6 +1,9 @@
 #!/bin/bash
 
 userid=$(id -u)
+DATETIMESTAMP = $(date+%F-%H-%M-%S)
+SCRIPT_NAME = $(echo $0 | cut -d "." -f1)
+LOG_FILE = /tmp/$SCRIPT_NAME-$DATETIMESTAMP.log
 
 VALIDATE(){
     if [ $1 -ne 0 ]
@@ -21,5 +24,5 @@ else
     echo "you have admin access"
 fi
 
-dnf install mysql -y
+dnf install mysql -y &&>>$LOG_FILE
 VALIDATE $? "installing mysql"
