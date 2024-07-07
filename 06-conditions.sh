@@ -1,7 +1,7 @@
 #!/bin/bash
 
 userid=$(id -u)
-if [$userid -ne 0]
+if [ $userid -ne 0 ]
 then
     echo "Please get admin access"
     exit 1
