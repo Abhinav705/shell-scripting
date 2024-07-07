@@ -1,38 +1,42 @@
-userid=$(id -u)
-DATETIMESTAMP=$(date +%F-%H-%M-%S)
+#!/bin/bash
+
+USERID=$(id -u)
+TIMESTAMP=$(date +%F-%H-%M-%S)
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
-LOG_FILE=/tmp/$SCRIPT_NAME-$DATETIMESTAMP.log
+LOGFILE=/tmp/$SCRIPT_NAME-$TIMESTAMP.log
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
 VALIDATE(){
-    if [ $1 -ne 0 ]
-    then
-        echo -e "installation of $2 is $R failed $N"
+   if [ $1 -ne 0 ]
+   then
+        echo -e "$2...$R FAILURE $N"
+        exit 1
     else
-        echo -e "installation of $2 is $G success $G"
+        echo -e "$2...$G SUCCESS $N"
     fi
 }
 
-if [ $userid -ne 0 ]
+if [ $USERID -ne 0 ]
 then
-    echo -e "You don't have root access. Please get the $R root $N access"
-    exit 1
+    echo "Please run this script with root access."
+    exit 1 # manually exit if error comes.
 else
-    echo -e "You have the $G root $N access"
+    echo "You are super user."
 fi
 
 for i in $@
 do
-    echo "Checking the package $i is present or not...."
-    dnf list installed $i &>>$LOG_FILE
+    echo "package to install: $i"
+    dnf list installed $i &>>$LOGFILE
     if [ $? -eq 0 ]
     then
-        echo -e "Package $i is already installed...$Y skipping $N"
+        echo -e "$i already installed...$Y SKIPPING $N"
     else
-        dnf install $i -y &>>$LOG_FILE
+        dnf install $i -y &>>$LOGFILE
         VALIDATE $? "Installation of $i"
     fi
 done
+
