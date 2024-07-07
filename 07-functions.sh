@@ -24,5 +24,5 @@ else
     echo "you have admin access"
 fi
 
-dnf install mysql -y &&>>$LOG_FILE
+dnf install mysql -y &>>$LOG_FILE
 VALIDATE $? "installing mysql"
