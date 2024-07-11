@@ -1,8 +1,8 @@
 #!/bin/bash
-$userid=$(id -u)
-$DATETIMESTAMP=$(date +F-%H-%M-%S)
-$SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
-$LOG_FILE=/tmp/$SCRIPT_NAME-$DATETIMESTAMP.log
+userid=$(id -u)
+DATETIMESTAMP=$(date +F-%H-%M-%S)
+SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
+LOG_FILE=/tmp/$SCRIPT_NAME-$DATETIMESTAMP.log
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
@@ -17,14 +17,13 @@ VALIDATE(){
     fi
 }
 
-SUPERUSER(){
-    if [ $userid -ne 0 ]
-    then
-        echo -e "You are not $R SUPER $N user"
-    else
-        echo -e "You are $R SUPER $N user"
-    fi
-}
+if [ $userid -ne 0 ]
+then
+    echo -e "You are not $R SUPER $N user"
+    exit 1
+else
+    echo -e "You are $R SUPER $N user"
+fi
 
 dnf install mysql-server -y &>>$LOG_FILE
 VALIDATE $? "SQL Server installation"
