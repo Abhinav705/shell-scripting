@@ -8,6 +8,7 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
+
 VALIDATE(){
     if [ $1 -ne 0 ]
     then
@@ -25,6 +26,9 @@ else
     echo -e "You are $R SUPER $N user"
 fi
 
+echo "Enter Password: "
+read -s password
+
 dnf install mysql-server -y &>>$LOG_FILE
 VALIDATE $? "SQL Server installation"
 
@@ -35,11 +39,11 @@ systemctl start mysqld &>>$LOG_FILE
 VALIDATE $? "Starting MYSQL"
 
 
-mysql -h 172.31.44.110 -uroot -pExpenseApp@1 -e 'show databases;' &>>$LOG_FILE
+mysql -h 172.31.44.110 -uroot -p$password -e 'show databases;' &>>$LOG_FILE
 
 if [ $? -ne 0 ]
 then
-    mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOG_FILE
+    mysql_secure_installation --set-root-pass $password &>>$LOG_FILE
     VALIDATE $? "Setting up password.."
 else
     echo -e "Password already set..$Y Skipping.. $N"
