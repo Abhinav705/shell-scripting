@@ -62,7 +62,7 @@ npm install &>>$LOG_FILE
 VALIDATE $? "Installing dependencies"
 
 
-cp backend.service /etc/systemd/system/backend.service &>>$LOG_FILE
+cp backend.service /etc/systemd/system/backend.service
 VALIDATE $? "Copied backend service"
 
 systemctl daemon-reload &>>$LOG_FILE
