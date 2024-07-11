@@ -32,10 +32,10 @@ read -s password
 dnf module disable nodejs -y &>>$LOG_FILE
 VALIDATE $? "Disbaling node js"
 
-dnf module enable nodejs:20 -y &>>&LOG_FILE
+dnf module enable nodejs:20 -y &>>$LOG_FILE
 VALIDATE $? "Enabling nodejs:20"
 
-dnf install nodejs -y &>>&LOG_FILE
+dnf install nodejs -y &>>$LOG_FILE
 VALIDATE $? "Installing nodejs"
 
 id expense
@@ -71,7 +71,7 @@ systemctl start backend &>>$LOG_FILE
 dnf install mysql -y &>>$LOG_FILE
 VALIDATE $? "Installing myssql client"
 
-mysql -h 172.31.44.110 -uroot -pExpenseApp@1 < /app/schema/backend.sql
+mysql -h 172.31.44.110 -uroot -p$password < /app/schema/backend.sql
 VALIDATE $? "Loading Schema"
 
 systemctl restart backend &>>$LOG_FILE
