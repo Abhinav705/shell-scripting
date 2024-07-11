@@ -62,7 +62,7 @@ npm install &>>$LOG_FILE
 VALIDATE $? "Installing dependencies"
 
 
-cp /home/ec2-user/shell-scriping/expense-shell /etc/systemd/system/backend.service &>>$LOG_FILE
+cp /home/ec2-user/shell-scriping/expense-shell/backend.service /etc/systemd/system/backend.service &>>$LOG_FILE
 VALIDATE $? "Copied backend service"
 
 systemctl daemon-reload &>>$LOG_FILE
