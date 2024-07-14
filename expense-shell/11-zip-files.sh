@@ -3,7 +3,7 @@
 SOURCE_DIR=/tmp/shell-logs
 DEST_DIR=/archive/shell-logs-zipped
 
-if [ -d $SOURCE_DIR && -d $DEST_DIR ]
+if [ -d $SOURCE_DIR ] && [ -d $DEST_DIR ]
 then
     echo "Source and dest directory exists"
 else
