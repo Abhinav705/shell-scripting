@@ -13,4 +13,4 @@ do
         Message+="Disk Usage reached the limit: Folder is : $FOLDER and current usage is: $PERCENTAGE\n"
     fi
 done <<<$DISK_MEM
-echo -e  "Message : $Message"
+echo "$Message" | mail -s "Disk Usage Alert" saiabhinav837@gmail.com
