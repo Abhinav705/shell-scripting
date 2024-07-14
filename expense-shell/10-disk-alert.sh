@@ -10,7 +10,7 @@ do
     FOLDER=$(echo $line| awk -F " " '{print $NF}')
     if [ $PERCENTAGE -ge $LIMIT ]
     then
-        Message += "Disk Usage reached the limit: Folder is : $FOLDER and current usage is: $PERCENTAGE"
+        Message+="Disk Usage reached the limit: Folder is : $FOLDER and current usage is: $PERCENTAGE\n"
     fi
 done <<<$DISK_MEM
-echo "$Message"
+echo -e  "Message : $Message"
